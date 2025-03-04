@@ -9,7 +9,7 @@ class BadWordsFilter {
     $this->bad_words = $bad_words;
   }
   
-  private function build_word_regex($word) {
+  private function build_word_regex($word, $full_word) {
     $variations_per_letter = [
       "a" => ["@", "4", "à", "á", "â", "ä", "ã", "å", "α"],
       "b" => ["8", "ß", "ƃ", "β", "v"],
@@ -57,14 +57,39 @@ class BadWordsFilter {
       }
     }
 
-    $word_regex = "/\b{$word_regex}\b/ui";
+    if($full_word) {
+      // Uses word regex and adds some support for plurals (s?)
+      $word_regex = "/\b{$word_regex}s?\b/ui";
+
+    } else {
+      // If we don't want to support the full word, we will only check \b at the begginning of the word
+      $word_regex = "/\b{$word_regex}/ui";
+    }
 
     return $word_regex;
   }
 
-  private function check_has_bad_words($string) {
-    foreach($this->bad_words as $bad_word) {
-      $bad_word_regex = $this->build_word_regex($bad_word);
+  private function check_has_bad_words_nouns($string) {
+    foreach($this->bad_words["nouns"] as $bad_word) {
+      $bad_word_regex = $this->build_word_regex($bad_word, true);
+
+      if(preg_match($bad_word_regex, $string)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  // Supports only Spanish
+  private function check_has_bad_words_verbs($string) {
+    foreach($this->bad_words["verbs"] as $bad_word) {
+      // As all the verbs are infinitive, they end with r.
+      // Can be a good approach to remove the last letter to check for conjugations
+      $bad_word = substr($bad_word, 0, strlen($bad_word) -1);
+
+      // We don't check for the whole word, as we are seeking conjugations
+      $bad_word_regex = $this->build_word_regex($bad_word, false);
 
       if(preg_match($bad_word_regex, $string)) {
         return true;
@@ -89,7 +114,10 @@ class BadWordsFilter {
   public function check($string) {
     $string = strtolower($string);
 
-    $is_valid = !$this->check_has_urls($string) & !$this->check_has_html($string) & !$this->check_has_bad_words($string);
+    $is_valid = !$this->check_has_urls($string)
+              & !$this->check_has_html($string)
+              & !$this->check_has_bad_words_nouns($string)
+              & !$this->check_has_bad_words_verbs($string);
 
     echo $is_valid ? "Sí" : "No";
     echo "\n";
@@ -100,4 +128,4 @@ class BadWordsFilter {
 
 $bad_words = new BadWordsFilter($bad_words);
 
-$bad_words->check("En este hotel sois todos unos majos.");
+$bad_words->check("En este hotel sois todos unos majos. mea culpa");
