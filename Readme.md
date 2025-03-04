@@ -64,3 +64,7 @@ It applies this simple but working regex: `/<[^>]+>/i`
 
 - Inspired by [https://github.com/mioga-technik/badwords](https://github.com/mioga-technik/badwords)
 - Developed by [Guiem Bagur](https://guiem.dev)
+
+## License
+
+- This library is only 100 lines of code. Do whatever you want with it.
