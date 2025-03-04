@@ -115,7 +115,7 @@ class BadWordsFilter {
   }
 
   private function check_has_html($string) {
-    $html_regex = "/<[^>]+>/ui";
+    $html_regex = "/<[^>]+>/i";
 
     return preg_match($html_regex, $string);
   }
