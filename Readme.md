@@ -28,4 +28,4 @@ Dictionary is called `bad_words.php`. If you'd like to customize it, you'd have 
 ## Credits
 
 - Inspired by [https://github.com/mioga-technik/badwords](https://github.com/mioga-technik/badwords)
-- Developed by [https://guiem.dev](Guiem Bagur)
+- Developed by [Guiem Bagur](https://guiem.dev)
