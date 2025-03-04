@@ -1,6 +1,6 @@
 # BadWordsFilter
 
-By Guiem Bagur
+A tiny library to automatically reject rude texts.
 
 ## Installation
 
