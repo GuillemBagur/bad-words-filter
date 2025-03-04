@@ -476,6 +476,7 @@ $bad_words = [
     "crimine",
   ],
 
+  // Only in Spanish
   "verbs" => [
     "insultar",
     "agredir",

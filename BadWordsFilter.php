@@ -125,7 +125,3 @@ class BadWordsFilter {
     return $is_valid;
   }
 }
-
-$bad_words = new BadWordsFilter($bad_words);
-
-$bad_words->check("En este hotel sois todos unos majos. mea culpa");
