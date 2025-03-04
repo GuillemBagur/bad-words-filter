@@ -4,10 +4,18 @@ include "./bad_words.php";
 
 class BadWordsFilter {
   private $bad_words;
+  private $allow_bad_words_nouns;
+  private $allow_bad_words_verbs;
+  private $allow_urls;
+  private $allow_html;
 
-  public function __construct() {
+  public function __construct($allow_bad_words_nouns = false, $allow_bad_words_verbs = false, $allow_urls = false, $allow_html = false) {
     global $bad_words;
     $this->bad_words = $bad_words;
+    $this->allow_bad_words_nouns = $allow_bad_words_nouns;
+    $this->allow_bad_words_verbs = $allow_bad_words_verbs;
+    $this->allow_urls = $allow_urls;
+    $this->allow_html = $allow_html;
   }
   
   private function build_word_regex($word, $full_word) {
@@ -115,11 +123,30 @@ class BadWordsFilter {
   public function check($string) {
     $string = strtolower($string);
 
-    $is_valid = !$this->check_has_urls($string)
-              & !$this->check_has_html($string)
-              & !$this->check_has_bad_words_nouns($string)
-              & !$this->check_has_bad_words_verbs($string);
+    if(!$this->allow_urls) {
+      if($this->check_has_urls($string)) {
+        return false;
+      }
+    }
 
-    return $is_valid;
+    if(!$this->allow_html) {
+      if($this->check_has_html($string)) {
+        return false;
+      }
+    }
+
+    if(!$this->allow_bad_words_nouns) {
+      if($this->check_has_bad_words_nouns($string)) {
+        return false;
+      }
+    }
+
+    if(!$this->allow_bad_words_verbs) {
+      if($this->check_has_bad_words_verbs($string)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
