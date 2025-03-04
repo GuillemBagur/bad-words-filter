@@ -8,9 +8,7 @@ To use BadWordsFilter, you only have to download the files and include them in a
 
 ## Capabilities
 
-This tiny library is useful to make a fast verification to see if a text is polite or rude. It's not magic, it only has a bunch of words and checks them (and their variations, v4riations, v4ria7ions, varia7ion5, ...). It supports Spanish verbs as well. Due to language nature, this library works well in English and Spanish. Not specially designed for German, French, etc. However, you can take advantatge of some of its power on any latin-alphabet based language.
-
-After that, it also checks for links and 
+This tiny library is useful to make a fast verification to see if a text is polite or rude. It's not magic, it only has a bunch of words and checks them (and their variations, v4riations, v4ria7ions, varia7ion5, ...). It supports Spanish verbs as well. Due to language nature, this library works well in English and Spanish. Not specially designed for German, French, etc. However, you can take advantatge of some of its power on any latin-alphabet based language. After that, it also checks for links and HTML tags.
 
 ## Usage
 
@@ -59,6 +57,7 @@ It applies the following regex: `/((https?:\/\/|www\.)[a-zA-Z0-9-]+(\.[a-zA-Z]{2
 
 It applies this simple but working regex: `/<[^>]+>/i`
 
+> **Note**: as searching for a URL or HTML tag is a less expensive task, those are the first filters in the `check` method.
 
 ## Credits
 
