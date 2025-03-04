@@ -5,7 +5,8 @@ include "./bad_words.php";
 class BadWordsFilter {
   private $bad_words;
 
-  public function __construct($bad_words) {
+  public function __construct() {
+    global $bad_words;
     $this->bad_words = $bad_words;
   }
   
@@ -81,7 +82,7 @@ class BadWordsFilter {
     return false;
   }
 
-  // Supports only Spanish
+  // Only supports Spanish
   private function check_has_bad_words_verbs($string) {
     foreach($this->bad_words["verbs"] as $bad_word) {
       // As all the verbs are infinitive, they end with r.
@@ -119,9 +120,6 @@ class BadWordsFilter {
               & !$this->check_has_bad_words_nouns($string)
               & !$this->check_has_bad_words_verbs($string);
 
-    echo $is_valid ? "Sí" : "No";
-    echo "\n";
-    
     return $is_valid;
   }
 }
