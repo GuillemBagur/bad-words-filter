@@ -1,16 +1,24 @@
 <?php
 
-include "./bad_words.php";
+// Se podría mejorar el diccionario añadiendo la posiblidad al usuario de añadir nuevas palabras
 
 class BadWordsFilter {
-  private $bad_words;
+  public $bad_words;
   private $allow_bad_words_nouns;
   private $allow_bad_words_verbs;
   private $allow_urls;
   private $allow_html;
 
   public function __construct($allow_bad_words_nouns = false, $allow_bad_words_verbs = false, $allow_urls = false, $allow_html = false) {
-    global $bad_words;
+    $bad_words = file_get_contents("https://remotehost.es/student061/dwes/classes/BadWordsFilter/bad_words.json");
+
+    if(!$bad_words) {
+      echo "BadWordsFilter not available.";
+      return;
+    }
+
+    $bad_words = json_decode($bad_words, true);
+    
     $this->bad_words = $bad_words;
     $this->allow_bad_words_nouns = $allow_bad_words_nouns;
     $this->allow_bad_words_verbs = $allow_bad_words_verbs;

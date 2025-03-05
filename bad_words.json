@@ -1,8 +1,5 @@
-<?php
-// No accents here
-
-$bad_words = [
-  "nouns" => [
+{
+  "nouns": [
     "gilipollas",
     "cabron",
     "cabrones",
@@ -111,7 +108,6 @@ $bad_words = [
     "maltrato",
     "crimen",
 
-    // English
     "dumbass",
     "bastard",
     "shit",
@@ -209,7 +205,6 @@ $bad_words = [
     "abuse",
     "crime",
 
-    // French
     "imbecile",
     "connard",
     "connards",
@@ -473,11 +468,9 @@ $bad_words = [
     "setta",
     "corruzione",
     "maltrattamento",
-    "crimine",
+    "crimine"
   ],
-
-  // Only in Spanish
-  "verbs" => [
+  "verbs": [
     "insultar",
     "agredir",
     "follar",
@@ -502,6 +495,6 @@ $bad_words = [
     "emborrachar",
     "cagar",
     "masturbar",
-    "fornicar",
+    "fornicar"
   ]
-];
+}
